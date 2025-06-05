@@ -10,6 +10,8 @@ from collections import defaultdict
 import heapq
 from contextlib import asynccontextmanager
 
+print("*** Application script started ***")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup logic
