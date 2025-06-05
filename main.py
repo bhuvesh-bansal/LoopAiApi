@@ -10,6 +10,13 @@ from collections import defaultdict
 import heapq
 from contextlib import asynccontextmanager
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup logic
+    asyncio.create_task(batch_processor())
+    yield
+    # Shutdown logic (if any)
+
 app = FastAPI(title="Data Ingestion API", lifespan=lifespan)
 
 class Priority(str, Enum):
@@ -67,13 +74,6 @@ async def batch_processor():
                     await process_batch(batch)
                     last_batch_time = current_time
         await asyncio.sleep(0.1)
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup logic
-    asyncio.create_task(batch_processor())
-    yield
-    # Shutdown logic (if any)
 
 @app.post("/ingest")
 async def create_ingestion(request: IngestionRequest):
