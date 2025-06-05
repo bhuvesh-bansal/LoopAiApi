@@ -53,7 +53,7 @@ This application can be easily deployed to Railway. Follow the steps below:
 3.  **Add a `Procfile`:** Create a file named `Procfile` in the root of your project with the following content. This tells Railway how to run your web server:
 
     ```
-    web: uvicorn main:app --host 0.0.0.0 --port $PORT
+    web: uvicorn main:app --host 0.0.0.0 --port 5000
     ```
 4.  **Commit and Push the `Procfile`:** Commit the `Procfile` to your repository and push the changes. Railway will automatically detect the change and trigger a deployment.
 5.  **Access the Deployed API:** Once deployed, the API will be accessible at the URL provided by Railway, which in your case is `https://loopaiapi-production.up.railway.app`.
