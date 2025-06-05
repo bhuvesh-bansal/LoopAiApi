@@ -15,7 +15,9 @@ print("*** Application script started ***")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup logic
+    print("*** Entering lifespan startup ***")
     asyncio.create_task(batch_processor())
+    print("*** Batch processor task created ***")
     yield
     # Shutdown logic (if any)
 
