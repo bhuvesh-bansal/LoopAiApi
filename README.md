@@ -35,12 +35,28 @@ pip install -r requirements.txt
 
 ## Running the Application
 
-Start the server:
+Start the server locally:
 ```bash
 uvicorn main:app --reload
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available locally at `http://localhost:8000`.
+
+When deployed to Railway, the API is available at: `https://loopaiapi-production.up.railway.app`
+
+## Deployment to Railway
+
+This application can be easily deployed to Railway. Follow the steps below:
+
+1.  **Push your code to GitHub (or other supported Git provider):** Ensure your project is in a Git repository.
+2.  **Create a Railway Project:** Go to [Railway.app](https://railway.app), create a new project, and connect your repository.
+3.  **Add a `Procfile`:** Create a file named `Procfile` in the root of your project with the following content. This tells Railway how to run your web server:
+
+    ```
+    web: uvicorn main:app --host 0.0.0.0 --port $PORT
+    ```
+4.  **Commit and Push the `Procfile`:** Commit the `Procfile` to your repository and push the changes. Railway will automatically detect the change and trigger a deployment.
+5.  **Access the Deployed API:** Once deployed, the API will be accessible at the URL provided by Railway, which in your case is `https://loopaiapi-production.up.railway.app`.
 
 ## API Endpoints
 
