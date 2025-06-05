@@ -8,8 +8,9 @@ from datetime import datetime
 import time
 from collections import defaultdict
 import heapq
+from contextlib import asynccontextmanager
 
-app = FastAPI(title="Data Ingestion API")
+app = FastAPI(title="Data Ingestion API", lifespan=lifespan)
 
 class Priority(str, Enum):
     HIGH = "HIGH"
@@ -67,9 +68,12 @@ async def batch_processor():
                     last_batch_time = current_time
         await asyncio.sleep(0.1)
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup logic
     asyncio.create_task(batch_processor())
+    yield
+    # Shutdown logic (if any)
 
 @app.post("/ingest")
 async def create_ingestion(request: IngestionRequest):
