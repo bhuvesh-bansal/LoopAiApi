@@ -19,6 +19,7 @@ async def lifespan(app: FastAPI):
     yield
     # Shutdown logic (if any)
 
+print("*** Initializing FastAPI app ***")
 app = FastAPI(title="Data Ingestion API", lifespan=lifespan)
 
 class Priority(str, Enum):
